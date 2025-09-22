@@ -1,6 +1,7 @@
 "use client";
 
 import { useMemo } from "react";
+import { BarChart3 } from "lucide-react";
 import { motion } from "framer-motion";
 import {
   Bar,
@@ -105,7 +106,7 @@ export default function DashboardPage() {
           <CardContent className="h-72">
             {refreshing ? (
               <Skeleton className="h-full w-full" />
-            ) : (
+            ) : chartData.length ? (
               <ResponsiveContainer width="100%" height="100%">
                 <BarChart data={chartData}>
                   <XAxis dataKey="label" stroke="var(--muted-foreground)" />
@@ -122,6 +123,13 @@ export default function DashboardPage() {
                   <Bar dataKey="value" fill="var(--primary)" radius={[8, 8, 0, 0]} />
                 </BarChart>
               </ResponsiveContainer>
+            ) : (
+              <div className="flex h-full flex-col items-center justify-center gap-3 text-center text-sm text-muted-foreground">
+                <div className="rounded-full border border-dashed border-border/80 p-3">
+                  <BarChart3 className="h-6 w-6 text-muted-foreground" aria-hidden="true" />
+                </div>
+                <p>{t("dashboard.chartEmpty")}</p>
+              </div>
             )}
           </CardContent>
         </Card>

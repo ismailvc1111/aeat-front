@@ -5,6 +5,7 @@ import { useMemo } from "react";
 import { Command, Moon, SunMedium } from "lucide-react";
 import { Button } from "./ui/button";
 import { Input } from "./ui/input";
+import { cn } from "./ui/utils";
 import { CompanySwitcher } from "./CompanySwitcher";
 import { useI18n } from "../lib/i18n";
 import {
@@ -24,7 +25,12 @@ export function Topbar() {
   const localeOptions = useMemo(() => availableLocales, [availableLocales]);
 
   return (
-    <header className="sticky top-0 z-40 flex h-16 items-center justify-between border-b border-border bg-background/80 px-4 backdrop-blur">
+    <header
+      className={cn(
+        "sticky top-0 z-40 flex h-16 items-center justify-between border-b border-border backdrop-blur",
+        "bg-background/80 px-4 md:px-6 shadow-sm"
+      )}
+    >
       <div className="flex items-center gap-3">
         <Button
           variant="outline"
