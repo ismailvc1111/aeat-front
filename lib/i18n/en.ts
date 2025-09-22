@@ -39,6 +39,7 @@ export const en = {
     averageAmount: "Average invoice",
     timeline: "Latest activity",
     chartTitle: "Monthly revenue",
+    chartEmpty: "Not enough data to visualize revenue yet.",
   },
   invoices: {
     title: "Invoices",

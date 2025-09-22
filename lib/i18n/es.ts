@@ -41,6 +41,7 @@ export const es: Dictionary = {
     averageAmount: "Factura media",
     timeline: "Actividad reciente",
     chartTitle: "Ingresos mensuales",
+    chartEmpty: "Aún no hay datos para mostrar los ingresos.",
   },
   invoices: {
     title: "Facturas",
