@@ -1,12 +1,25 @@
 "use client";
 
 import Link from "next/link";
+import type { Route } from "next";
 import { usePathname } from "next/navigation";
-import { LayoutDashboard, FileText, Users, Package, Settings } from "lucide-react";
+import {
+  LayoutDashboard,
+  FileText,
+  Users,
+  Package,
+  Settings,
+  type LucideIcon,
+} from "lucide-react";
 import { cn } from "./ui/utils";
 import { useI18n } from "../lib/i18n";
 
-const links = [
+const links: {
+  href: Route;
+  icon: LucideIcon;
+  labelKey: string;
+}[] = [
+
   {
     href: "/",
     icon: LayoutDashboard,

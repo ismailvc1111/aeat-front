@@ -119,6 +119,17 @@ export function InvoiceForm({
     )
   );
 
+  const handleIssue = useMemo(
+    () =>
+      handleSubmit(async (values) => {
+        if (onIssue) {
+          await onIssue(values);
+        }
+      }),
+    [handleSubmit, onIssue]
+  );
+
+
   useRegisterCommand(
     useMemo(
       () => ({
@@ -126,9 +137,10 @@ export function InvoiceForm({
         title: t("invoices.issue"),
         shortcutKey: "s",
         shortcutLabel: "S",
-        onSelect: () => onIssue?.(),
+        onSelect: () => handleIssue(),
       }),
-      [onIssue, t]
+      [handleIssue, t]
+
     )
   );
 
@@ -317,13 +329,8 @@ export function InvoiceForm({
           <Button
             type="button"
             disabled={isIssuing}
-            onClick={() =>
-              handleSubmit(async (values) => {
-                if (onIssue) {
-                  await onIssue(values);
-                }
-              })()
-            }
+            onClick={() => handleIssue()}
+
           >
             {isIssuing ? t("common.loading") : t("invoices.issue")}
           </Button>
