@@ -1,0 +1,72 @@
+import { Invoice } from "../types";
+
+export const mockInvoices: Invoice[] = [
+  {
+    id: "inv-1",
+    companyId: "c1",
+    customerId: "cus-1",
+    status: "issued",
+    series: "AC",
+    number: 12,
+    issueDate: new Date().toISOString(),
+    subtotal: 1200,
+    taxTotal: 252,
+    total: 1452,
+    currency: "EUR",
+    lines: [
+      {
+        id: "line-1",
+        description: "Consultoría mensual",
+        qty: 1,
+        unitPrice: 1200,
+        taxRate: 21,
+        lineTotal: 1452,
+      },
+    ],
+    notes: "Pago a 30 días",
+  },
+  {
+    id: "inv-2",
+    companyId: "c1",
+    customerId: "cus-2",
+    status: "draft",
+    series: "ACR",
+    subtotal: 600,
+    taxTotal: 126,
+    total: 726,
+    currency: "EUR",
+    lines: [
+      {
+        id: "line-2",
+        description: "Horas adicionales",
+        qty: 6,
+        unitPrice: 100,
+        taxRate: 21,
+        lineTotal: 726,
+      },
+    ],
+  },
+  {
+    id: "inv-3",
+    companyId: "c2",
+    customerId: "cus-3",
+    status: "issued",
+    series: "GL",
+    number: 8,
+    issueDate: new Date().toISOString(),
+    subtotal: 890,
+    taxTotal: 186.9,
+    total: 1076.9,
+    currency: "EUR",
+    lines: [
+      {
+        id: "line-3",
+        description: "Suscripción SaaS",
+        qty: 10,
+        unitPrice: 89,
+        taxRate: 21,
+        lineTotal: 1076.9,
+      },
+    ],
+  },
+];

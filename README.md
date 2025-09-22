@@ -1,281 +1,90 @@
-# Prompt: SaaS de Facturación (Frontend Only)
+# InvoiceSaaS Frontend
 
-Copia y pega el siguiente prompt en tu generador de código favorito (Firebase AI, etc.) para obtener un frontend completo listo para desplegar en Vercel.
+Frontend completo para un SaaS de facturación multi-tenant construido con Next.js 14 (App Router), TailwindCSS y shadcn/ui. Incluye autenticación mock, dashboard con KPIs, listado y edición de facturas con formularios dinámicos (react-hook-form + zod), Command Palette accesible, modo oscuro/claro, i18n (ES/EN) y datos simulados con servicios asíncronos.
 
----
+## Requisitos
 
-PROMPT — SaaS de Facturación (Frontend Only, listo para Vercel)
+- Node.js 18+
+- pnpm (recomendado) o npm/yarn
 
-Eres un generador de código senior. Crea solo el FRONTEND completo de un SaaS de facturación multi-tenant, con UI premium (estilo Vercel/Linear), accesibilidad AA, i18n (ES/EN) y modo dark/light.
-El backend NO existe: usa mock API (in-memory o /lib/mock) y deja puntos de integración claros para reemplazar por API real más adelante.
+## Scripts principales
 
-1) Objetivo de producto
+```bash
+pnpm install      # instala dependencias
+pnpm dev          # entorno local en http://localhost:3000
+pnpm build        # build de producción
+pnpm start        # sirve el build (usado por Vercel)
+pnpm lint         # linting (Next.js + ESLint)
+```
 
-Usuarios gestionan empresas (multi-tenant), clientes, productos y facturas (borrador→emitida).
+## Deploy en Vercel
 
-Editor de facturas con totales dinámicos, vista previa (dummy) de PDF.
+1. Importa el repositorio en Vercel.
+2. Selecciona el framework **Next.js** (14).
+3. Variables opcionales:
+   - `NEXT_PUBLIC_APP_NAME` (por defecto `InvoiceSaaS`).
+   - `NEXT_PUBLIC_DEFAULT_LOCALE` (`es` o `en`).
+4. No se necesitan servicios externos ni base de datos. La aplicación usa mocks in-memory compatibles con Edge.
 
-Dashboard con KPIs y gráfico de facturas.
+## Estructura destacada
 
-UI minimalista, rápida, teclado-first (⌘K, N, S, P).
-
-2) Stack & librerías obligatorias
-
-Next.js 14 App Router + TypeScript (optimizado para Vercel).
-
-TailwindCSS, shadcn/ui, Radix UI, lucide-react.
-
-framer-motion (micro-interacciones), Recharts (KPIs).
-
-react-hook-form + zod (formularios/validación).
-
-i18n con simple diccionarios (ES/EN) y helpers.
-
-Edge Runtime por defecto; Node.js Runtime solo si hace falta (mock PDF), pero mantén todo “serverless-friendly”.
-
-Sin dependencias de servidor (no Strapi, no DB). Todo mock.
-
-3) Paleta y tipografía (tema profesional)
-
-Fondo oscuro: #0F0F0F
-
-Tarjetas: #1C1C1C
-
-Texto primario: #FFFFFF
-
-Texto secundario: #9CA3AF
-
-Borde: #2D2D2D
-
-Primario: #2563EB (botones/links)
-
-Éxito: #22C55E | Error: #EF4444 | Warning: #F59E0B
-
-Modo claro: fondo #F9FAFB, tarjetas #FFFFFF, textos #111827
-
-Tipografía: Inter o Geist Sans
-
-Configura tokens de color en Tailwind y tema de shadcn/ui. Dark como predeterminado, con toggle.
-
-4) Páginas y navegación
-
-/(auth)/login, /(auth)/register, /(auth)/forgot (UI sola, sin lógica real)
-
-/ Dashboard (KPIs + gráfico Recharts + timeline)
-
-/invoices listado (filtros por estado/serie, búsqueda)
-
-/invoices/new y /invoices/[id] editor (borrador)
-
-/customers CRUD mock
-
-/products CRUD mock (con IVA por defecto)
-
-/settings (empresa, series, idioma, perfil, tema)
-
-Company Switcher en la topbar (multi-tenant simulado)
-
-5) Componentes clave a construir
-
-components/Sidebar, components/Topbar, components/CompanySwitcher
-
-components/CommandK (⌘K): Acciones — nueva factura, emitir, descargar PDF (dummy)
-
-components/KpiCard, components/StatusChip (success/error/warning)
-
-components/InvoiceForm (RHF+Zod, líneas dinámicas, totales en vivo)
-
-components/MoneyInput, components/TaxBadge, components/PdfPreview (dummy)
-
-components/Table reutilizable (responsive, accesible, con “empty state”)
-
-6) Lógica de UI (mock)
-
-Mock data en /lib/mock: companies, customers, products, invoices.
-
-Mock services en /lib/api con promesas (simulate latency 300-600ms).
-
-Emitir factura: cambia status: "draft" → "issued", asigna número secuencial por series, fija issueDate.
-
-Cálculos: base, IVA por línea, totales; redondeo a 2 decimales.
-
-PdfPreview: placeholder (imagen o iframe) + botón “Descargar PDF” (genera blob dummy).
-
-7) Accesibilidad y UX
-
-Contraste AA, focus visible, aria-labels, navegación teclado.
-
-Atajos: N (nueva factura), S (emitir), P (abrir vista previa PDF), ⌘K (Command).
-
-Estados optimistas con toasts no intrusivos (shadcn/ui).
-
-Skeletons de carga (dashboard/listas/editor).
-
-Animaciones sutiles (fade/slide) con framer-motion.
-
-8) i18n (ES/EN)
-
-Diccionarios simples en /i18n/es.ts y /i18n/en.ts.
-
-Hook useI18n() para traducir.
-
-Selector de idioma en /settings.
-
-9) Estructura de proyecto (App Router)
+```
 app/
-  (auth)/
-    login/page.tsx
-    register/page.tsx
-    forgot/page.tsx
-  (app)/
-    layout.tsx
-    page.tsx                 # Dashboard
-    invoices/
-      page.tsx               # listado
-      new/page.tsx
-      [id]/page.tsx          # editor
-    customers/page.tsx
-    products/page.tsx
-    settings/page.tsx
+  (auth)/*          # pantallas de login/register/forgot
+  (app)/layout.tsx  # layout principal (sidebar + topbar)
+  (app)/page.tsx    # dashboard con KPIs + Recharts
+  (app)/invoices/*  # listado, nueva factura y editor
+  (app)/customers   # CRUD mock de clientes
+  (app)/products    # CRUD mock de productos
+  (app)/settings    # ajustes de empresa, idioma y tema
 components/
-  Sidebar.tsx
-  Topbar.tsx
-  CompanySwitcher.tsx
-  CommandK.tsx
-  KpiCard.tsx
-  StatusChip.tsx
-  InvoiceForm.tsx
-  MoneyInput.tsx
-  TaxBadge.tsx
-  PdfPreview.tsx
-  Table.tsx
+  CommandK.tsx      # command palette + shortcuts (⌘K, N, S, P)
+  InvoiceForm.tsx   # formulario dinámico con RHF+Zod
+  PdfPreview.tsx    # placeholder + descarga PDF dummy
+  Table.tsx         # tabla reutilizable accesible
 lib/
-  api/
-    invoices.ts
-    customers.ts
-    products.ts
-    companies.ts
-  mock/
-    seed.ts
-    invoices.ts
-    customers.ts
-    products.ts
-    companies.ts
-  utils/
-    currency.ts
-    shortcuts.ts
-    totals.ts
-  i18n/
-    index.ts
-    es.ts
-    en.ts
+  api/*             # servicios mock con latencia simulada
+  mock/*            # datos in-memory
+  providers/*       # AppDataProvider, I18nProvider, etc.
+  utils/*           # currency, totals, shortcuts
 styles/
-  globals.css
-  theme.css
+  globals.css       # tokens Tailwind/shadcn (dark por defecto)
+```
 
-10) Contratos de datos (TypeScript, mock)
-// lib/types.ts
-export type Company = { id: string; name: string; taxId: string; country: string; series: string; };
-export type Customer = { id: string; companyId: string; name: string; taxId: string; country: string; email?: string; };
-export type Product = { id: string; companyId: string; name: string; unitPrice: number; taxRate: number; };
-export type InvoiceLine = { id: string; description: string; qty: number; unitPrice: number; taxRate: number; lineTotal: number; };
-export type InvoiceStatus = 'draft' | 'issued' | 'sent';
-export type Invoice = {
-  id: string; companyId: string; customerId: string;
-  status: InvoiceStatus; series: string; number?: number;
-  issueDate?: string; subtotal: number; taxTotal: number; total: number; currency: 'EUR';
-  lines: InvoiceLine[];
-};
+## Tema y diseño
 
-11) Validación de formulario (Zod ejemplo)
-import { z } from 'zod';
-export const LineSchema = z.object({
-  description: z.string().min(1),
-  qty: z.number().positive(),
-  unitPrice: z.number().nonnegative(),
-  taxRate: z.number().min(0).max(21)
-});
-export const InvoiceSchema = z.object({
-  customerId: z.string().min(1),
-  series: z.string().min(1),
-  lines: z.array(LineSchema).min(1)
-});
+- Paleta definida en `styles/globals.css` (tokens CSS) y `tailwind.config.ts`.
+- Para cambiar colores ajusta los tokens `--background`, `--primary`, etc., y reconstruye (`pnpm dev`).
+- Modo dark/light gestionado con `next-themes`. Toggle en la topbar.
 
-12) Totales (utilidad)
-export function computeTotals(lines:{qty:number;unitPrice:number;taxRate:number}[]){
-  return lines.reduce((acc, l)=>{
-    const base = l.qty * l.unitPrice;
-    const tax = base * (l.taxRate/100);
-    return {
-      subtotal: +(acc.subtotal + base).toFixed(2),
-      taxTotal: +(acc.taxTotal + tax).toFixed(2),
-      total: +(acc.total + base + tax).toFixed(2),
-    };
-  }, { subtotal:0, taxTotal:0, total:0 });
-}
+## i18n
 
-13) Estilo (Tailwind & shadcn/ui)
+- Diccionarios en `lib/i18n/{es,en}.ts`.
+- Para añadir idiomas duplica un diccionario, expórtalo y actualiza `dictionaries` en `lib/i18n/index.tsx`.
+- `useI18n()` provee `t`, `locale`, `setLocale` y lista de locales disponibles.
 
-Configura tema con tokens arriba.
+## Integración con backend real
 
-Sidebar fija, topbar con búsqueda y CompanySwitcher.
+Reemplaza los servicios mock en `lib/api/*` por llamadas a tus endpoints:
 
-Tablas con filas hover, estados con StatusChip.
+- `lib/api/companies.ts` → datos de empresas / multi-tenant.
+- `lib/api/customers.ts` → CRUD de clientes.
+- `lib/api/products.ts` → CRUD de productos.
+- `lib/api/invoices.ts` → list/CRUD de facturas, emisión y numeración.
 
-Botón primario azul (#2563EB), secundarios grises, destructive rojo.
+Cada servicio simula latencia (300-600ms) y opera sobre los mocks (`lib/mock`). Sustitúyelos por fetch/axios manteniendo las mismas firmas para evitar cambios en el UI.
 
-14) Vercel (adaptación total)
+## Teclado y accesibilidad
 
-Sin dependencias de servidor: build & deploy directo.
+- ⌘K abre el Command Palette (Radix Dialog + framer-motion).
+- N: nueva factura · S: emitir · P: vista previa PDF.
+- Componentes accesibles (focus visible, aria labels, tablas responsive).
+- Skeletons y toasts optimistas mediante shadcn/ui.
 
-Scripts:
+## Datos mock
 
-dev: next dev
+- `lib/mock/*` contiene seed inicial.
+- `lib/providers/app-data.tsx` orquesta el estado (empresas, clientes, productos, facturas) y expone acciones a los componentes.
+- `lib/utils/totals.ts` calcula totales (base, IVA, total).
 
-build: next build
-
-start: next start
-
-Variables opcionales:
-
-NEXT_PUBLIC_APP_NAME="InvoiceSaaS"
-
-NEXT_PUBLIC_DEFAULT_LOCALE="es"
-
-Incluye vercel.json mínimo si lo ves necesario (no obligatorio).
-
-15) Criterios de aceptación (obligatorios)
-
-Cambiar empresa en CompanySwitcher refresca datos mock (multi-tenant simulado).
-
-Dashboard: 3–4 KPIs (emitidas, aceptadas, rechazadas, importe total) + gráfico mensual.
-
-Listado de facturas con búsqueda y filtro por estado/serie.
-
-Editor con líneas dinámicas y totales en vivo; botón Emitir cambia estado y asigna número.
-
-⌘K abre Command Palette con acciones: Nueva factura, Emitir, Descargar PDF (dummy).
-
-Accesibilidad AA, focus visible, dark/light toggle, responsive.
-
-Sin errores de TypeScript ni ESLint; build OK; deploy instantáneo en Vercel.
-
-16) Entregables
-
-Código completo del frontend con la estructura propuesta.
-
-Datos mock y servicios mock funcionales.
-
-Documentación README.md con:
-
-cómo ejecutar local (pnpm i && pnpm dev)
-
-cómo desplegar en Vercel
-
-cómo cambiar la paleta/tema y añadir nuevos idiomas
-
-puntos de integración para backend real (endpoints que reemplazar)
-
----
-
-¡Listo! Este prompt está preparado para generar el frontend solicitado.
+¡Lista para iterar y conectar a tu backend! 🧾🚀
