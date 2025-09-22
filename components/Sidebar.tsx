@@ -19,6 +19,7 @@ const links: {
   icon: LucideIcon;
   labelKey: string;
 }[] = [
+
   {
     href: "/",
     icon: LayoutDashboard,

@@ -129,6 +129,7 @@ export function InvoiceForm({
     [handleSubmit, onIssue]
   );
 
+
   useRegisterCommand(
     useMemo(
       () => ({
@@ -139,6 +140,7 @@ export function InvoiceForm({
         onSelect: () => handleIssue(),
       }),
       [handleIssue, t]
+
     )
   );
 
@@ -328,6 +330,7 @@ export function InvoiceForm({
             type="button"
             disabled={isIssuing}
             onClick={() => handleIssue()}
+
           >
             {isIssuing ? t("common.loading") : t("invoices.issue")}
           </Button>
