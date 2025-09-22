@@ -4,12 +4,13 @@ import * as React from "react";
 import { Input } from "./ui/input";
 
 export interface MoneyInputProps
-  extends Omit<React.InputHTMLAttributes<HTMLInputElement>, "onChange"> {
+  extends Omit<React.ComponentPropsWithoutRef<typeof Input>, "onChange"> {
   onValueChange?: (value: number) => void;
+  onChange?: React.ChangeEventHandler<HTMLInputElement>;
 }
 
 export const MoneyInput = React.forwardRef<HTMLInputElement, MoneyInputProps>(
-  ({ onValueChange, value, ...props }, ref) => {
+  ({ onValueChange, onChange, value, ...props }, ref) => {
     return (
       <Input
         ref={ref}
@@ -22,7 +23,7 @@ export const MoneyInput = React.forwardRef<HTMLInputElement, MoneyInputProps>(
           if (!Number.isNaN(numeric)) {
             onValueChange?.(numeric);
           }
-          props.onChange?.(event as any);
+          onChange?.(event);
         }}
         {...props}
       />
