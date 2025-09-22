@@ -129,6 +129,7 @@ export function InvoiceForm({
     [handleSubmit, onIssue]
   );
 
+
   useRegisterCommand(
     useMemo(
       () => ({

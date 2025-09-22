@@ -11,6 +11,7 @@ export interface MoneyInputProps
 
 export const MoneyInput = React.forwardRef<HTMLInputElement, MoneyInputProps>(
   ({ onValueChange, onChange, value, ...props }, ref) => {
+
     return (
       <Input
         ref={ref}
@@ -24,6 +25,7 @@ export const MoneyInput = React.forwardRef<HTMLInputElement, MoneyInputProps>(
             onValueChange?.(numeric);
           }
           onChange?.(event);
+
         }}
         {...props}
       />
