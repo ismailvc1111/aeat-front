@@ -94,7 +94,7 @@ export default function NewInvoicePage() {
   };
 
   return (
-    <div className="grid gap-6 lg:grid-cols-[2fr_1fr]">
+    <div className="grid gap-8 lg:grid-cols-[2fr_1fr]">
       <InvoiceForm
         customers={customers}
         products={products}

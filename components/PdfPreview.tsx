@@ -44,20 +44,20 @@ export function PdfPreview({ invoiceNumber }: { invoiceNumber?: string }) {
   );
 
   return (
-    <Card>
-      <CardHeader>
+    <Card className="border-border/40">
+      <CardHeader className="pb-2">
         <CardTitle>{t("invoices.preview")}</CardTitle>
       </CardHeader>
       <CardContent className="space-y-4">
-        <div className="flex h-48 items-center justify-center rounded-md border border-dashed border-border bg-muted/20 text-sm text-muted-foreground">
+        <div className="flex h-52 items-center justify-center rounded-3xl border border-dashed border-border/60 bg-background/60 text-sm text-muted-foreground shadow-inner shadow-black/10">
           PDF Preview Placeholder
         </div>
         <Button
           onClick={handleDownload}
-          className="w-full"
+          className="w-full gap-2"
           disabled={isGenerating}
         >
-          <FileDown className="mr-2 h-4 w-4" />
+          <FileDown className="h-4 w-4" />
           {isGenerating ? t("common.loading") : t("invoices.download")}
         </Button>
       </CardContent>

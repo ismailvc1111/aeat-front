@@ -28,16 +28,16 @@ export default function SettingsPage() {
   const [series, setSeries] = useState(company?.series.join(", ") ?? "");
 
   return (
-    <div className="space-y-6">
-      <div>
-        <h1 className="text-2xl font-semibold">{t("settings.title")}</h1>
+    <div className="space-y-8">
+      <div className="space-y-1">
+        <h1 className="text-3xl font-semibold tracking-tight">{t("settings.title")}</h1>
         <p className="text-sm text-muted-foreground">
           {t("settings.preferences")}
         </p>
       </div>
       <div className="grid gap-6 md:grid-cols-2">
-        <Card>
-          <CardHeader>
+        <Card className="border-border/40">
+          <CardHeader className="pb-2">
             <CardTitle>{t("settings.company")}</CardTitle>
           </CardHeader>
           <CardContent className="space-y-4">
@@ -70,8 +70,8 @@ export default function SettingsPage() {
             </Button>
           </CardContent>
         </Card>
-        <Card>
-          <CardHeader>
+        <Card className="border-border/40">
+          <CardHeader className="pb-2">
             <CardTitle>{t("settings.preferences")}</CardTitle>
           </CardHeader>
           <CardContent className="space-y-4">

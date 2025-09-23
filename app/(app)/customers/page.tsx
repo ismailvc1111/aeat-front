@@ -10,6 +10,7 @@ import { Input } from "../../../components/ui/input";
 import { Label } from "../../../components/ui/label";
 import { Dialog, DialogContent, DialogTitle } from "../../../components/ui/dialog";
 import { useToast } from "../../../components/ui/toast-provider";
+import { Plus } from "lucide-react";
 
 export const runtime = "edge";
 
@@ -66,10 +67,18 @@ export default function CustomersPage() {
   };
 
   return (
-    <div className="space-y-6">
-      <div className="flex items-center justify-between">
-        <h1 className="text-2xl font-semibold">{t("customers.title")}</h1>
-        <Button onClick={() => setOpen(true)}>{t("customers.new")}</Button>
+    <div className="space-y-8">
+      <div className="flex flex-wrap items-center justify-between gap-4">
+        <div className="space-y-1">
+          <h1 className="text-3xl font-semibold tracking-tight">{t("customers.title")}</h1>
+          <p className="text-sm text-muted-foreground">
+            {t("customers.subtitle")}
+          </p>
+        </div>
+        <Button className="gap-2" onClick={() => setOpen(true)}>
+          <Plus className="h-4 w-4" />
+          {t("customers.new")}
+        </Button>
       </div>
       <Table
         data={customers}

@@ -17,6 +17,8 @@ export const en = {
     lightMode: "Light mode",
     language: "Language",
     theme: "Theme",
+    keyboardFirst: "Keyboard-first experience",
+    commandMenu: "Command palette",
     save: "Save changes",
     cancel: "Cancel",
     create: "Create",
@@ -26,6 +28,7 @@ export const en = {
     loginTitle: "Welcome back",
     registerTitle: "Create your account",
     forgotTitle: "Recover password",
+    subtitle: "Sign in to continue orchestrating your invoicing workspace.",
     email: "Email",
     password: "Password",
     name: "Name",
@@ -33,6 +36,9 @@ export const en = {
     backToLogin: "Back to login",
   },
   dashboard: {
+    heroTitle: "Premium insights at a glance",
+    heroSubtitle:
+      "Stay on top of revenue, customers, and upcoming invoices with a focus-friendly workspace.",
     issuedTotal: "Issued invoices",
     draftTotal: "Draft invoices",
     totalAmount: "Total billed",
@@ -69,9 +75,11 @@ export const en = {
     download: "Download PDF",
     pdfReady: "PDF generated (mock)",
     notes: "Internal notes",
+    viewAll: "View invoices",
   },
   customers: {
     title: "Customers",
+    subtitle: "Manage billing contacts with confidence.",
     empty: "No customers yet.",
     email: "Email",
     country: "Country",
@@ -80,6 +88,7 @@ export const en = {
   },
   products: {
     title: "Products",
+    subtitle: "Keep your catalog aligned with live pricing.",
     empty: "No products yet.",
     price: "Price",
     taxRate: "VAT %",
@@ -104,6 +113,12 @@ export const en = {
     draft: "Draft",
     issued: "Issued",
     sent: "Sent",
+  },
+  shortcuts: {
+    command: "Open command palette",
+    newInvoice: "Create invoice",
+    issue: "Issue invoice",
+    preview: "Open PDF preview",
   },
 };
 

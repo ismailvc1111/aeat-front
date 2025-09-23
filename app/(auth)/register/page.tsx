@@ -10,14 +10,16 @@ export default function RegisterPage() {
   const { t } = useI18n();
 
   return (
-    <form className="space-y-6">
-      <div className="space-y-2 text-center">
-        <h1 className="text-2xl font-semibold">{t("auth.registerTitle")}</h1>
+    <form className="space-y-8 text-left">
+      <div className="space-y-3 text-center">
+        <h1 className="text-3xl font-semibold tracking-tight text-foreground">
+          {t("auth.registerTitle")}
+        </h1>
         <p className="text-sm text-muted-foreground">
           Crea tu cuenta demo. Personaliza el onboarding en el backend real.
         </p>
       </div>
-      <div className="space-y-4">
+      <div className="space-y-5">
         <div className="space-y-2">
           <Label htmlFor="name">{t("auth.name")}</Label>
           <Input id="name" required />
@@ -35,7 +37,10 @@ export default function RegisterPage() {
         {t("auth.submit")}
       </Button>
       <div className="text-center text-xs text-muted-foreground">
-        <Link href="/login" className="hover:text-primary">
+        <Link
+          href="/login"
+          className="inline-flex items-center justify-center rounded-full border border-transparent px-3 py-1 transition hover:border-border/60 hover:text-foreground"
+        >
           {t("auth.backToLogin")}
         </Link>
       </div>

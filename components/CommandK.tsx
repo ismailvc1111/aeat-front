@@ -12,6 +12,7 @@ import { Search } from "lucide-react";
 import { Dialog, DialogContent } from "./ui/dialog";
 import { Input } from "./ui/input";
 import { Button } from "./ui/button";
+import { useI18n } from "../lib/i18n";
 import { registerShortcuts } from "../lib/utils/shortcuts";
 
 export type CommandAction = {
@@ -42,6 +43,7 @@ export function CommandPaletteProvider({
   const [open, setOpen] = useState(false);
   const [actions, setActions] = useState<Map<string, CommandAction>>(new Map());
   const [query, setQuery] = useState("");
+  const { t } = useI18n();
 
   const registerAction = useCallback((action: CommandAction) => {
     setActions((current) => new Map(current).set(action.id, action));
@@ -97,29 +99,32 @@ export function CommandPaletteProvider({
           }
         }}
       >
-        <DialogContent className="p-0">
+        <DialogContent className="overflow-hidden border-border/50 bg-card/80 p-0">
           <div className="flex flex-col">
-            <div className="flex items-center gap-2 border-b border-border px-4 py-3">
+            <div className="relative flex items-center gap-3 border-b border-border/40 bg-white/5 px-6 py-4 backdrop-blur">
               <Search className="h-4 w-4 text-muted-foreground" aria-hidden="true" />
               <Input
-                placeholder="Type a command or search…"
+                placeholder={t("common.search")}
                 value={query}
                 onChange={(event) => setQuery(event.target.value)}
                 autoFocus
               />
+              <span className="ml-auto hidden rounded-full bg-foreground/5 px-3 py-1 text-[11px] font-semibold text-muted-foreground/80 sm:block">
+                ⌘K
+              </span>
             </div>
-            <div className="max-h-[320px] overflow-y-auto p-2">
+            <div className="max-h-[320px] overflow-y-auto p-4">
               {filtered.length === 0 ? (
-                <p className="px-2 py-6 text-sm text-muted-foreground">
-                  No actions available
+                <p className="rounded-2xl border border-dashed border-border/60 px-4 py-8 text-center text-sm text-muted-foreground">
+                  {t("common.empty")}
                 </p>
               ) : (
-                <ul className="space-y-1">
+                <ul className="space-y-2">
                   {filtered.map((action) => (
                     <li key={action.id}>
                       <Button
                         variant="ghost"
-                        className="h-auto w-full justify-between text-left"
+                        className="h-auto w-full justify-between rounded-2xl border border-transparent bg-white/0 px-4 py-3 text-left transition hover:border-border/40 hover:bg-white/5"
                         onClick={() => {
                           setOpen(false);
                           setQuery("");
@@ -127,7 +132,9 @@ export function CommandPaletteProvider({
                         }}
                       >
                         <span className="flex flex-col items-start">
-                          <span className="text-sm font-medium">{action.title}</span>
+                          <span className="text-sm font-medium text-foreground">
+                            {action.title}
+                          </span>
                           {action.subtitle ? (
                             <span className="text-xs text-muted-foreground">
                               {action.subtitle}
@@ -135,7 +142,7 @@ export function CommandPaletteProvider({
                           ) : null}
                         </span>
                         {action.shortcutLabel ? (
-                          <span className="rounded-md border border-border bg-muted px-1.5 py-0.5 text-xs text-muted-foreground">
+                          <span className="rounded-full border border-border/40 bg-white/5 px-3 py-1 text-[11px] font-semibold text-muted-foreground/80">
                             {action.shortcutLabel}
                           </span>
                         ) : null}

@@ -1,6 +1,13 @@
 "use client";
 
-import { createContext, useContext, useEffect, useMemo, useState } from "react";
+import {
+  createContext,
+  useCallback,
+  useContext,
+  useEffect,
+  useMemo,
+  useState,
+} from "react";
 import {
   createCustomer,
   deleteCustomer,
@@ -114,7 +121,7 @@ export function AppDataProvider({ children }: { children: React.ReactNode }) {
     };
   }, [companyId]);
 
-  const refreshCompanyData = async (id?: string) => {
+  const refreshCompanyData = useCallback(async (id?: string) => {
     const targetId = id ?? companyId;
     if (!targetId) return;
     setRefreshing(true);
@@ -127,7 +134,7 @@ export function AppDataProvider({ children }: { children: React.ReactNode }) {
     setProducts(companyProducts);
     setInvoices(companyInvoices);
     setRefreshing(false);
-  };
+  }, [companyId]);
 
   const value = useMemo<DataContextValue>(() => ({
     companies,
@@ -219,6 +226,7 @@ export function AppDataProvider({ children }: { children: React.ReactNode }) {
     invoices,
     loading,
     refreshing,
+    refreshCompanyData,
   ]);
 
   return <DataContext.Provider value={value}>{children}</DataContext.Provider>;

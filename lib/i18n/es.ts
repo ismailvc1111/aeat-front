@@ -19,6 +19,8 @@ export const es: Dictionary = {
     lightMode: "Modo claro",
     language: "Idioma",
     theme: "Tema",
+    keyboardFirst: "Experiencia centrada en el teclado",
+    commandMenu: "Menú de comandos",
     save: "Guardar cambios",
     cancel: "Cancelar",
     create: "Crear",
@@ -28,6 +30,7 @@ export const es: Dictionary = {
     loginTitle: "Bienvenido de nuevo",
     registerTitle: "Crea tu cuenta",
     forgotTitle: "Recuperar contraseña",
+    subtitle: "Accede para seguir orquestando tu espacio de facturación.",
     email: "Correo electrónico",
     password: "Contraseña",
     name: "Nombre",
@@ -35,6 +38,9 @@ export const es: Dictionary = {
     backToLogin: "Volver a acceder",
   },
   dashboard: {
+    heroTitle: "Tu panorámica premium",
+    heroSubtitle:
+      "Supervisa ingresos, clientes y próximas facturas en un entorno pensado para el foco.",
     issuedTotal: "Facturas emitidas",
     draftTotal: "Facturas borrador",
     totalAmount: "Total facturado",
@@ -71,9 +77,11 @@ export const es: Dictionary = {
     download: "Descargar PDF",
     pdfReady: "PDF generado (dummy)",
     notes: "Notas internas",
+    viewAll: "Ver facturas",
   },
   customers: {
     title: "Clientes",
+    subtitle: "Gestiona los contactos de facturación con confianza.",
     empty: "Aún no hay clientes.",
     email: "Correo",
     country: "País",
@@ -82,6 +90,7 @@ export const es: Dictionary = {
   },
   products: {
     title: "Productos",
+    subtitle: "Mantén tu catálogo alineado con precios actualizados.",
     empty: "Aún no hay productos.",
     price: "Precio",
     taxRate: "IVA %",
@@ -106,5 +115,11 @@ export const es: Dictionary = {
     draft: "Borrador",
     issued: "Emitida",
     sent: "Enviada",
+  },
+  shortcuts: {
+    command: "Abrir Command Palette",
+    newInvoice: "Crear factura",
+    issue: "Emitir factura",
+    preview: "Abrir vista previa PDF",
   },
 };

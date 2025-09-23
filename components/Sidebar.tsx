@@ -52,13 +52,23 @@ export function Sidebar() {
 
   return (
     <aside
-      className="hidden h-screen w-64 flex-col border-r border-border bg-background/80 backdrop-blur lg:flex"
+      className="relative hidden h-screen w-72 flex-col border-r border-border/40 bg-gradient-to-b from-background/75 via-background/55 to-background/75 px-6 py-8 backdrop-blur-xl lg:flex"
       aria-label="Primary"
     >
-      <div className="flex h-16 items-center border-b border-border px-6 text-lg font-semibold">
-        {t("common.appName")}
+      <div className="flex items-center gap-3 pb-10">
+        <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-gradient-to-br from-primary/70 via-primary/40 to-transparent shadow-[0_20px_45px_rgba(37,99,235,0.28)]">
+          <span className="text-lg font-semibold text-primary-foreground">∞</span>
+        </div>
+        <div>
+          <p className="text-sm uppercase tracking-[0.3em] text-muted-foreground">
+            {t("common.appName")}
+          </p>
+          <p className="text-xl font-semibold tracking-tight text-foreground">
+            InvoiceSaaS
+          </p>
+        </div>
       </div>
-      <nav className="flex-1 space-y-1 px-3 py-6" aria-label="Main navigation">
+      <nav className="flex-1 space-y-2" aria-label="Main navigation">
         {links.map((link) => {
           const Icon = link.icon;
           const isActive =
@@ -68,20 +78,30 @@ export function Sidebar() {
               key={link.href}
               href={link.href}
               className={cn(
-                "flex items-center gap-3 rounded-lg px-3 py-2 text-sm transition",
+                "group flex items-center gap-3 rounded-2xl px-4 py-3 text-sm font-medium transition-all",
                 isActive
-                  ? "bg-primary/10 text-primary"
-                  : "text-muted-foreground hover:bg-muted/40 hover:text-foreground"
+                  ? "bg-white/10 text-foreground shadow-[0_18px_35px_rgba(15,15,15,0.35)]"
+                  : "text-muted-foreground hover:bg-white/5 hover:text-foreground"
               )}
             >
-              <Icon className="h-4 w-4" aria-hidden="true" />
+              <span className="flex h-8 w-8 items-center justify-center rounded-xl border border-border/50 bg-background/60 backdrop-blur-md transition-colors group-hover:border-primary/40 group-hover:text-primary">
+                <Icon className="h-4 w-4" aria-hidden="true" />
+              </span>
               <span>{t(link.labelKey)}</span>
             </Link>
           );
         })}
       </nav>
-      <div className="px-6 pb-6 text-xs text-muted-foreground">
-        © {new Date().getFullYear()} InvoiceSaaS
+      <div className="mt-10 space-y-4 text-xs text-muted-foreground">
+        <div className="rounded-2xl border border-border/50 bg-background/60 p-4 backdrop-blur">
+          <p className="mb-1 font-semibold text-foreground/80">
+            {t("common.keyboardFirst")}
+          </p>
+          <p className="text-[11px] leading-relaxed text-muted-foreground">
+            ⌘K · {t("shortcuts.command")}<br />N · {t("shortcuts.newInvoice")}
+          </p>
+        </div>
+        <p>© {new Date().getFullYear()} InvoiceSaaS</p>
       </div>
     </aside>
   );

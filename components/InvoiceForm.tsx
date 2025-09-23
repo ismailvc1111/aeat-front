@@ -28,6 +28,7 @@ import { computeTotals } from "../lib/utils/totals";
 import { useI18n } from "../lib/i18n";
 import { useRegisterCommand } from "./CommandK";
 import { formatCurrency } from "../lib/utils/currency";
+import { Eye, Plus, Save, Send } from "lucide-react";
 
 const LineSchema = z.object({
   id: z.string().optional(),
@@ -100,7 +101,7 @@ export function InvoiceForm({
   const { control, watch, handleSubmit, reset } = form;
   const { fields, append, remove } = useFieldArray({ control, name: "lines" });
   const watchedLines = watch("lines") ?? [];
-  const totals = useMemo(() => computeTotals(watchedLines), [watchedLines]);
+  const totals = computeTotals(watchedLines);
 
   useEffect(() => {
     reset(defaultValues);
@@ -152,9 +153,9 @@ export function InvoiceForm({
   };
 
   return (
-    <form onSubmit={handleSubmit(submitHandler)} className="space-y-8">
+    <form onSubmit={handleSubmit(submitHandler)} className="space-y-10">
       <div className="grid gap-6 md:grid-cols-2">
-        <div className="space-y-4">
+        <div className="space-y-4 rounded-3xl border border-border/40 bg-card/70 p-6 shadow-[0_20px_45px_rgba(15,15,15,0.28)]">
           <div>
             <Label htmlFor="customer">{t("invoices.customer")}</Label>
             <Controller
@@ -198,7 +199,7 @@ export function InvoiceForm({
             />
           </div>
         </div>
-        <div className="space-y-4">
+        <div className="space-y-4 rounded-3xl border border-border/40 bg-card/70 p-6 shadow-[0_20px_45px_rgba(15,15,15,0.28)]">
           <div>
             <Label>{t("invoices.notes")}</Label>
             <Controller
@@ -212,16 +213,20 @@ export function InvoiceForm({
         </div>
       </div>
 
-      <div className="space-y-4">
+      <div className="space-y-5">
         <div className="flex items-center justify-between">
-          <h3 className="text-lg font-semibold">{t("invoices.lines")}</h3>
+          <h3 className="text-lg font-semibold tracking-tight">
+            {t("invoices.lines")}
+          </h3>
           <Button
             type="button"
             variant="outline"
+            className="gap-2"
             onClick={() =>
               append({ description: "", qty: 1, unitPrice: 0, taxRate: 21 })
             }
           >
+            <Plus className="h-4 w-4" />
             {t("invoices.addLine")}
           </Button>
         </div>
@@ -229,7 +234,7 @@ export function InvoiceForm({
           {fields.map((field, index) => (
             <div
               key={field.id}
-              className="grid gap-4 rounded-xl border border-border p-4 md:grid-cols-6"
+              className="grid gap-4 rounded-3xl border border-border/40 bg-card/70 p-5 shadow-[0_18px_40px_rgba(15,15,15,0.2)] md:grid-cols-6"
             >
               <div className="md:col-span-2">
                 <Label htmlFor={`lines.${index}.description`}>
@@ -301,7 +306,7 @@ export function InvoiceForm({
       </div>
 
       <div className="grid gap-4 md:grid-cols-2">
-        <div className="rounded-xl border border-border p-4">
+        <div className="rounded-3xl border border-border/40 bg-card/70 p-6 shadow-[0_18px_40px_rgba(15,15,15,0.2)]">
           <dl className="space-y-2 text-sm">
             <div className="flex items-center justify-between">
               <dt>{t("invoices.subtotal")}</dt>
@@ -317,18 +322,22 @@ export function InvoiceForm({
             </div>
           </dl>
         </div>
-        <div className="flex flex-wrap items-center justify-end gap-2">
-          <Button type="button" variant="outline" onClick={() => onPreview?.()}>
+        <div className="flex flex-wrap items-center justify-end gap-3">
+          <Button type="button" variant="outline" className="gap-2" onClick={() => onPreview?.()}>
+            <Eye className="h-4 w-4" />
             {t("invoices.preview")}
           </Button>
-          <Button type="submit" disabled={isSubmitting}>
+          <Button type="submit" className="gap-2" disabled={isSubmitting}>
+            <Save className="h-4 w-4" />
             {isSubmitting ? t("common.loading") : t("invoices.saveDraft")}
           </Button>
           <Button
             type="button"
+            className="gap-2"
             disabled={isIssuing}
             onClick={() => handleIssue()}
           >
+            <Send className="h-4 w-4" />
             {isIssuing ? t("common.loading") : t("invoices.issue")}
           </Button>
         </div>

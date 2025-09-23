@@ -37,32 +37,34 @@ export function Table<T>({
   }
 
   return (
-    <div className="overflow-x-auto">
-      <table className="w-full table-fixed border-collapse text-sm">
-        <thead className="bg-muted/40 text-left text-xs uppercase tracking-wide text-muted-foreground">
-          <tr>
-            {columns.map((column) => (
-              <th key={column.header} className={cn("px-4 py-3 text-left", column.className)}>
-                {column.header}
-              </th>
-            ))}
-          </tr>
-        </thead>
-        <tbody>
-          {data.map((item, index) => (
-            <tr
-              key={index}
-              className="border-b border-border/60 transition hover:bg-muted/20 focus-within:bg-muted/20"
-            >
+    <div className="overflow-hidden rounded-3xl border border-border/50 bg-card/70 shadow-[0_25px_60px_rgba(15,15,15,0.3)] backdrop-blur">
+      <div className="overflow-x-auto">
+        <table className="w-full table-fixed border-collapse text-sm">
+          <thead className="bg-white/5 text-left text-[11px] uppercase tracking-[0.2em] text-muted-foreground">
+            <tr>
               {columns.map((column) => (
-                <td key={column.header} className={cn("px-4 py-3", column.className)}>
-                  {column.accessor(item)}
-                </td>
+                <th key={column.header} className={cn("px-6 py-4 text-left", column.className)}>
+                  {column.header}
+                </th>
               ))}
             </tr>
-          ))}
-        </tbody>
-      </table>
+          </thead>
+          <tbody>
+            {data.map((item, index) => (
+              <tr
+                key={index}
+                className="border-t border-border/40 transition hover:bg-white/6 focus-within:bg-white/6"
+              >
+                {columns.map((column) => (
+                  <td key={column.header} className={cn("px-6 py-4 text-sm", column.className)}>
+                    {column.accessor(item)}
+                  </td>
+                ))}
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
     </div>
   );
 }

@@ -38,7 +38,7 @@ export default function InvoiceDetailPage() {
 
   if (!invoice) {
     return (
-      <div className="rounded-lg border border-dashed border-border p-10 text-center text-sm text-muted-foreground">
+      <div className="rounded-3xl border border-dashed border-border/60 bg-card/70 p-12 text-center text-sm text-muted-foreground">
         {t("invoices.empty")}
       </div>
     );
@@ -92,7 +92,7 @@ export default function InvoiceDetailPage() {
   };
 
   return (
-    <div className="grid gap-6 lg:grid-cols-[2fr_1fr]">
+    <div className="grid gap-8 lg:grid-cols-[2fr_1fr]">
       <InvoiceForm
         invoice={invoice}
         customers={customers}

@@ -18,6 +18,7 @@ import {
   SelectValue,
 } from "../../../components/ui/select";
 import type { Invoice } from "../../../lib/types";
+import { Card, CardContent, CardHeader, CardTitle } from "../../../components/ui/card";
 
 export const runtime = "edge";
 
@@ -100,57 +101,66 @@ export default function InvoicesPage() {
   );
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-8">
       <div className="flex flex-wrap items-center justify-between gap-4">
-        <div>
-          <h1 className="text-2xl font-semibold">{t("invoices.title")}</h1>
+        <div className="space-y-1">
+          <h1 className="text-3xl font-semibold tracking-tight">
+            {t("invoices.title")}
+          </h1>
           <p className="text-sm text-muted-foreground">
             {company ? company.name : t("common.loading")}
           </p>
         </div>
-        <Button onClick={() => router.push("/invoices/new")}>
-          <Plus className="mr-2 h-4 w-4" />
+        <Button className="gap-2" onClick={() => router.push("/invoices/new")}>
+          <Plus className="h-4 w-4" />
           {t("invoices.new")}
         </Button>
       </div>
-      <div className="grid gap-4 md:grid-cols-4">
-        <Input
-          placeholder={t("invoices.searchPlaceholder")}
-          value={search}
-          onChange={(event) => setSearch(event.target.value)}
-          className="md:col-span-2"
-        />
-        <Select
-          value={status ?? ""}
-          onValueChange={(value) => setStatus(value || undefined)}
-        >
-          <SelectTrigger>
-            <SelectValue placeholder={t("invoices.filterStatus")} />
-          </SelectTrigger>
-          <SelectContent>
-            <SelectItem value="">{t("invoices.filterStatus")}</SelectItem>
-            <SelectItem value="draft">{t("status.draft")}</SelectItem>
-            <SelectItem value="issued">{t("status.issued")}</SelectItem>
-            <SelectItem value="sent">{t("status.sent")}</SelectItem>
-          </SelectContent>
-        </Select>
-        <Select
-          value={series ?? ""}
-          onValueChange={(value) => setSeries(value || undefined)}
-        >
-          <SelectTrigger>
-            <SelectValue placeholder={t("invoices.filterSeries")} />
-          </SelectTrigger>
-          <SelectContent>
-            <SelectItem value="">{t("invoices.filterSeries")}</SelectItem>
-            {company?.series.map((serie) => (
-              <SelectItem key={serie} value={serie}>
-                {serie}
-              </SelectItem>
-            ))}
-          </SelectContent>
-        </Select>
-      </div>
+      <Card className="border-border/40">
+        <CardHeader className="pb-2">
+          <CardTitle className="text-sm font-semibold uppercase tracking-[0.3em] text-muted-foreground">
+            {t("common.actions")}
+          </CardTitle>
+        </CardHeader>
+        <CardContent className="grid gap-4 md:grid-cols-4">
+          <Input
+            placeholder={t("invoices.searchPlaceholder")}
+            value={search}
+            onChange={(event) => setSearch(event.target.value)}
+            className="md:col-span-2"
+          />
+          <Select
+            value={status ?? ""}
+            onValueChange={(value) => setStatus(value || undefined)}
+          >
+            <SelectTrigger>
+              <SelectValue placeholder={t("invoices.filterStatus")} />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="">{t("invoices.filterStatus")}</SelectItem>
+              <SelectItem value="draft">{t("status.draft")}</SelectItem>
+              <SelectItem value="issued">{t("status.issued")}</SelectItem>
+              <SelectItem value="sent">{t("status.sent")}</SelectItem>
+            </SelectContent>
+          </Select>
+          <Select
+            value={series ?? ""}
+            onValueChange={(value) => setSeries(value || undefined)}
+          >
+            <SelectTrigger>
+              <SelectValue placeholder={t("invoices.filterSeries")} />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="">{t("invoices.filterSeries")}</SelectItem>
+              {company?.series.map((serie) => (
+                <SelectItem key={serie} value={serie}>
+                  {serie}
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
+        </CardContent>
+      </Card>
       <Table
         data={filtered}
         columns={columns}
