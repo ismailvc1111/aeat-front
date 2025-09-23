@@ -24,35 +24,33 @@ export function Topbar() {
   const localeOptions = useMemo(() => availableLocales, [availableLocales]);
 
   return (
-    <header className="sticky top-0 z-40 px-6 pt-6">
-      <div className="mx-auto flex w-full max-w-6xl flex-wrap items-center justify-between gap-4 rounded-3xl border border-border/50 bg-card/70 px-6 py-4 shadow-[0_30px_70px_rgba(8,8,8,0.45)] backdrop-blur-xl">
-        <div className="flex flex-1 flex-wrap items-center gap-4">
+    <header className="sticky top-0 z-40 border-b border-border/60 bg-background/80 backdrop-blur">
+      <div className="mx-auto flex h-16 w-full max-w-6xl items-center gap-4 px-6">
+        <div className="flex flex-1 items-center gap-3">
           <Button
             variant="outline"
-            className="hidden items-center gap-3 rounded-full border-border/60 bg-background/60 px-5 py-3 text-sm font-medium text-muted-foreground hover:text-foreground sm:flex"
+            className="hidden items-center gap-2 rounded-lg border-border/60 bg-background/80 px-3 py-2 text-sm font-medium text-muted-foreground hover:text-foreground sm:flex"
             aria-label={t("common.commandMenu")}
             onClick={() => setOpen(true)}
           >
             <Command className="h-4 w-4" />
             <span>{t("common.commandMenu")}</span>
-            <span className="rounded-full bg-foreground/5 px-2 py-1 text-[11px] font-semibold text-muted-foreground/80">
-              ⌘K
-            </span>
+            <span className="rounded bg-background/60 px-1.5 py-0.5 text-[11px] font-semibold text-muted-foreground">⌘K</span>
           </Button>
-          <div className="relative flex min-w-[200px] flex-1 items-center">
+          <div className="relative hidden min-w-[220px] flex-1 items-center sm:flex">
             <Search
-              className="pointer-events-none absolute left-4 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground"
+              className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground"
               aria-hidden="true"
             />
             <Input
               type="search"
               placeholder={t("common.search")}
-              className="pl-11 pr-4"
+              className="rounded-lg border-border/60 bg-background/80 pl-9 pr-3 text-sm"
               aria-label={t("common.search")}
             />
           </div>
         </div>
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-2">
           <Button
             variant="outline"
             size="icon"
@@ -62,6 +60,9 @@ export function Topbar() {
           >
             <Command className="h-4 w-4" />
           </Button>
+          <div className="lg:hidden">
+            <CompanySwitcher />
+          </div>
           <div className="hidden lg:flex">
             <CompanySwitcher />
           </div>
@@ -82,6 +83,7 @@ export function Topbar() {
           <Button
             variant="ghost"
             size="icon"
+            className="rounded-lg"
             aria-label={theme === "dark" ? t("common.lightMode") : t("common.darkMode")}
             onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
           >
@@ -93,25 +95,31 @@ export function Topbar() {
           </Button>
         </div>
       </div>
-      <div className="mx-auto mt-4 flex w-full max-w-6xl flex-wrap items-center justify-between gap-3">
-        <span className="text-xs font-medium uppercase tracking-[0.4em] text-muted-foreground">
-          {t("common.keyboardFirst")}
-        </span>
-        <div className="flex items-center gap-3 lg:hidden">
-          <CompanySwitcher />
-          <Select value={locale} onValueChange={(value) => setLocale(value as typeof locale)}>
-            <SelectTrigger className="w-24" aria-label={t("common.language")}> 
-              <SelectValue />
-            </SelectTrigger>
-            <SelectContent>
-              {localeOptions.map((code) => (
-                <SelectItem key={code} value={code}>
-                  {code.toUpperCase()}
-                </SelectItem>
-              ))}
-            </SelectContent>
-          </Select>
+      <div className="mx-auto flex w-full max-w-6xl items-center justify-between gap-3 px-6 pb-3 sm:hidden">
+        <div className="relative flex min-w-[200px] flex-1 items-center">
+          <Search
+            className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground"
+            aria-hidden="true"
+          />
+          <Input
+            type="search"
+            placeholder={t("common.search")}
+            className="rounded-lg border-border/60 bg-background/80 pl-9 pr-3 text-sm"
+            aria-label={t("common.search")}
+          />
         </div>
+        <Select value={locale} onValueChange={(value) => setLocale(value as typeof locale)}>
+          <SelectTrigger className="w-24" aria-label={t("common.language")}>
+            <SelectValue />
+          </SelectTrigger>
+          <SelectContent>
+            {localeOptions.map((code) => (
+              <SelectItem key={code} value={code}>
+                {code.toUpperCase()}
+              </SelectItem>
+            ))}
+          </SelectContent>
+        </Select>
       </div>
     </header>
   );

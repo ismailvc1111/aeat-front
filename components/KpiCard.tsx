@@ -15,34 +15,40 @@ export function KpiCard({
   accent?: "success" | "warning" | "destructive" | "primary";
   icon?: ReactNode;
 }) {
+  const accentBar = {
+    primary: "bg-primary/80",
+    success: "bg-success/80",
+    warning: "bg-warning/80",
+    destructive: "bg-destructive/80",
+  }[accent ?? "primary"];
+
+  const accentTone = {
+    primary: "bg-primary/10 text-primary",
+    success: "bg-success/10 text-success",
+    warning: "bg-warning/10 text-warning",
+    destructive: "bg-destructive/10 text-destructive",
+  }[accent ?? "primary"];
+
   return (
-    <Card className="relative overflow-hidden border-border/40 bg-gradient-to-br from-background/50 via-card to-card/60">
-      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(76,125,255,0.2),transparent_55%)]" />
-      <CardHeader className="relative z-10 pb-2">
-        <div className="flex items-center justify-between text-sm text-muted-foreground">
-          {title}
-          {icon ? (
-            <span className="flex h-8 w-8 items-center justify-center rounded-2xl bg-white/10 text-foreground">
-              {icon}
+    <Card className="relative h-full overflow-hidden border border-border/60 bg-card/90 p-6 shadow-lg shadow-black/15">
+      <span className={cn("absolute inset-x-0 top-0 h-1", accentBar)} aria-hidden="true" />
+      <CardHeader className="flex flex-row items-start justify-between space-y-0 pb-4">
+        <div className="space-y-1">
+          <p className="text-sm font-medium text-muted-foreground">{title}</p>
+          {trend ? (
+            <span className={cn("inline-flex items-center rounded-full px-2 py-0.5 text-xs font-medium", accentTone)}>
+              {trend}
             </span>
           ) : null}
         </div>
-      </CardHeader>
-      <CardContent className="relative z-10">
-        <p className="text-3xl font-semibold tracking-tight">{value}</p>
-        {trend ? (
-          <p
-            className={cn(
-              "mt-2 text-sm font-medium",
-              accent === "success" && "text-success",
-              accent === "warning" && "text-warning",
-              accent === "destructive" && "text-destructive",
-              accent === "primary" && "text-primary"
-            )}
-          >
-            {trend}
-          </p>
+        {icon ? (
+          <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-background/40 text-foreground/80">
+            {icon}
+          </span>
         ) : null}
+      </CardHeader>
+      <CardContent>
+        <p className="text-3xl font-semibold tracking-tight md:text-4xl">{value}</p>
       </CardContent>
     </Card>
   );
