@@ -74,109 +74,100 @@ export default function DashboardPage() {
   );
 
   return (
-    <div className="flex flex-col gap-10">
+    <div className="space-y-10">
       <motion.section
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5, ease: "easeOut" }}
+        className="rounded-3xl border border-border/50 bg-surface/95 px-8 py-8 shadow-[0_30px_80px_rgba(8,8,8,0.25)] backdrop-blur"
       >
-        <Card className="relative overflow-hidden border border-border/60 bg-card/90 px-8 py-10 shadow-lg shadow-black/20">
-          <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(37,99,235,0.12),transparent_55%)]" />
-          <div className="relative grid gap-8 md:grid-cols-[minmax(0,1fr)_auto] md:items-start">
-            <div className="space-y-5">
-              <span className="inline-flex items-center gap-2 rounded-full border border-border/70 bg-secondary/60 px-3 py-1 text-xs font-medium uppercase tracking-[0.35em] text-muted-foreground">
-                {t("common.appName")}
-              </span>
-              <div className="space-y-3">
-                <h1 className="text-balance text-3xl font-semibold tracking-tight md:text-4xl">
-                  {t("dashboard.heroTitle")}
-                </h1>
-                <p className="max-w-xl text-base text-muted-foreground">
-                  {t("dashboard.heroSubtitle")}
-                </p>
-              </div>
-              <div className="flex flex-wrap gap-6 text-sm text-muted-foreground">
-                <span className="flex items-center gap-2">
-                  <span className="h-2.5 w-2.5 rounded-full bg-success" aria-hidden="true" />
-                  {t("status.issued")} · {stats.issuedCount}
-                </span>
-                <span className="flex items-center gap-2">
-                  <span className="h-2.5 w-2.5 rounded-full bg-warning" aria-hidden="true" />
-                  {t("status.draft")} · {stats.draftCount}
-                </span>
-                {company ? (
-                  <span className="flex items-center gap-2">
-                    <span className="h-2.5 w-2.5 rounded-full bg-primary" aria-hidden="true" />
-                    {company.name}
-                  </span>
-                ) : null}
-              </div>
+        <div className="flex flex-col gap-6 lg:flex-row lg:items-center lg:justify-between">
+          <div className="space-y-4">
+            <div className="space-y-2">
+              <h1 className="text-3xl font-semibold text-text-primary lg:text-[34px]">
+                {t("dashboard.heroTitle")}
+              </h1>
+              <p className="max-w-2xl text-sm text-text-secondary">
+                {t("dashboard.heroSubtitle")}
+              </p>
             </div>
-            <div className="flex flex-col gap-3 sm:flex-row md:flex-col">
-              <Button
-                className="gap-2 text-sm"
-                size="lg"
-                onClick={() => router.push("/invoices/new")}
-                aria-label={t("invoices.new")}
-              >
-                <Plus className="h-4 w-4" />
-                {t("invoices.new")}
-              </Button>
-              <Button
-                variant="secondary"
-                className="gap-2 text-sm"
-                size="lg"
-                onClick={() => router.push("/invoices")}
-                aria-label={t("invoices.viewAll")}
-              >
-                {t("invoices.viewAll")}
-                <ArrowRight className="h-4 w-4" />
-              </Button>
+            <div className="flex flex-wrap items-center gap-4 text-xs text-text-secondary">
+              <span className="inline-flex items-center gap-2 rounded-full border border-border/60 px-3 py-1">
+                <span className="h-2 w-2 rounded-full bg-success" aria-hidden="true" />
+                {t("status.issued")} · {stats.issuedCount}
+              </span>
+              <span className="inline-flex items-center gap-2 rounded-full border border-border/60 px-3 py-1">
+                <span className="h-2 w-2 rounded-full bg-warning" aria-hidden="true" />
+                {t("status.draft")} · {stats.draftCount}
+              </span>
+              {company ? (
+                <span className="inline-flex items-center gap-2 rounded-full border border-border/60 px-3 py-1">
+                  <span className="h-2 w-2 rounded-full bg-primary" aria-hidden="true" />
+                  {company.name}
+                </span>
+              ) : null}
             </div>
           </div>
-        </Card>
+          <div className="flex flex-col gap-3 sm:flex-row lg:flex-col">
+            <Button
+              className="gap-2 text-sm"
+              size="lg"
+              onClick={() => router.push("/invoices/new")}
+              aria-label={t("invoices.new")}
+            >
+              <Plus className="h-4 w-4" />
+              {t("invoices.new")}
+            </Button>
+            <Button
+              variant="secondary"
+              className="gap-2 text-sm"
+              size="lg"
+              onClick={() => router.push("/invoices")}
+              aria-label={t("invoices.viewAll")}
+            >
+              {t("invoices.viewAll")}
+              <ArrowRight className="h-4 w-4" />
+            </Button>
+          </div>
+        </div>
       </motion.section>
 
       <motion.div
-        className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4"
+        className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4"
         initial={{ opacity: 0, y: 12 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.4, ease: "easeOut" }}
       >
         <KpiCard
-          title={t("dashboard.issuedTotal")}
+          label={t("dashboard.issuedTotal")}
           value={stats.issuedCount.toString()}
-          trend={`${stats.issuedCount} ${t("status.issued")}`}
-          accent="primary"
-          icon={<Sparkles className="h-5 w-5" />}
+          hint={`${stats.issuedCount} ${t("status.issued")}`}
+          icon={Sparkles}
         />
         <KpiCard
-          title={t("dashboard.draftTotal")}
+          label={t("dashboard.draftTotal")}
           value={stats.draftCount.toString()}
-          trend={`${stats.draftCount} ${t("status.draft")}`}
-          accent="warning"
-          icon={<Clock className="h-5 w-5" />}
+          hint={`${stats.draftCount} ${t("status.draft")}`}
+          icon={Clock}
         />
         <KpiCard
-          title={t("dashboard.totalAmount")}
+          label={t("dashboard.totalAmount")}
           value={formatCurrency(stats.totalAmount, locale)}
-          trend={t("dashboard.chartTitle")}
-          accent="success"
-          icon={<Wallet className="h-5 w-5" />}
+          hint={t("dashboard.chartTitle")}
+          icon={Wallet}
         />
         <KpiCard
-          title={t("dashboard.averageAmount")}
+          label={t("dashboard.averageAmount")}
           value={formatCurrency(stats.averageAmount, locale)}
-          trend={t("dashboard.timeline")}
-          accent="primary"
-          icon={<TrendingUp className="h-5 w-5" />}
+          hint={t("dashboard.timeline")}
+          icon={TrendingUp}
         />
       </motion.div>
 
       <div className="grid gap-6 lg:grid-cols-2">
-        <Card className="border border-border/60 bg-card/90 shadow-lg shadow-black/15">
+        <Card>
           <CardHeader className="pb-2">
-            <CardTitle className="text-lg font-semibold">
+            <CardTitle className="text-lg font-semibold text-text-primary">
               {t("dashboard.chartTitle")}
             </CardTitle>
           </CardHeader>
@@ -186,54 +177,64 @@ export default function DashboardPage() {
             ) : (
               <ResponsiveContainer width="100%" height="100%">
                 <BarChart data={chartData}>
-                  <XAxis dataKey="label" stroke="var(--muted-foreground)" tickLine={false} axisLine={false} />
-                  <YAxis stroke="var(--muted-foreground)" hide />
+                  <XAxis dataKey="label" stroke="var(--text-secondary)" tickLine={false} axisLine={false} />
+                  <YAxis stroke="var(--text-secondary)" hide />
                   <Tooltip
                     contentStyle={{
-                      background: "var(--card)",
+                      background: "var(--surface)",
                       borderRadius: 12,
                       border: `1px solid var(--border)` as string,
-                      color: "var(--foreground)",
+                      color: "var(--text-primary)",
                     }}
                     formatter={(value: number) => formatCurrency(value, locale)}
                   />
-                  <Bar dataKey="value" fill="var(--primary)" radius={[8, 8, 0, 0]} barSize={28} />
+                  <Bar dataKey="value" fill="var(--primary)" radius={[10, 10, 0, 0]} barSize={28} />
                 </BarChart>
               </ResponsiveContainer>
             )}
           </CardContent>
         </Card>
-        <Card className="border border-border/60 bg-card/90 shadow-lg shadow-black/15">
-          <CardHeader className="pb-2">
-            <CardTitle className="text-lg font-semibold">
+        <Card>
+          <CardHeader className="flex flex-row items-center justify-between pb-2">
+            <CardTitle className="text-lg font-semibold text-text-primary">
               {t("dashboard.timeline")}
             </CardTitle>
+            <Button variant="ghost" size="sm" onClick={() => router.push("/invoices")}>
+              {t("invoices.viewAll")}
+            </Button>
           </CardHeader>
-          <CardContent className="space-y-4">
-            {timeline.map((invoice) => {
-              const customer = customers.find((c) => c.id === invoice.customerId);
-              return (
-                <div
-                  key={invoice.id}
-                  className="flex items-center justify-between rounded-xl border border-border/60 bg-background/20 p-4"
-                >
-                  <div>
-                    <p className="text-sm font-semibold">{customer?.name ?? "-"}</p>
-                    <p className="text-xs text-muted-foreground">
-                      #{invoice.series}-{invoice.number ?? "—"}
-                    </p>
-                  </div>
-                  <div className="text-right">
-                    <StatusChip status={invoice.status} />
-                    <p className="mt-1 text-sm font-semibold">
-                      {formatCurrency(invoice.total, locale)}
-                    </p>
-                  </div>
-                </div>
-              );
-            })}
-            {!timeline.length && (
-              <p className="text-sm text-muted-foreground">{t("common.empty")}</p>
+          <CardContent className="space-y-3">
+            {timeline.length === 0 ? (
+              <p className="rounded-2xl border border-dashed border-border/60 px-4 py-8 text-center text-sm text-text-secondary">
+                {t("dashboard.emptyTimeline")}
+              </p>
+            ) : (
+              <ul className="space-y-3">
+                {timeline.map((invoice) => {
+                  const customer = customers.find((item) => item.id === invoice.customerId);
+                  return (
+                    <li
+                      key={invoice.id}
+                      className="flex items-center justify-between rounded-2xl border border-border/60 bg-surface/80 px-4 py-3 text-sm"
+                    >
+                      <div>
+                        <p className="font-semibold text-text-primary">
+                          #{invoice.series}
+                          {invoice.number ?? "—"}
+                        </p>
+                        <p className="text-xs text-text-secondary">{customer?.name ?? "—"}</p>
+                      </div>
+                      <div className="flex flex-col items-end gap-1 text-right">
+                        <StatusChip status={invoice.status} />
+                        <p className="text-sm font-semibold text-text-primary">
+                          {formatCurrency(invoice.total, locale)}
+                        </p>
+                        <p className="text-xs text-text-secondary">{invoice.issueDate}</p>
+                      </div>
+                    </li>
+                  );
+                })}
+              </ul>
             )}
           </CardContent>
         </Card>

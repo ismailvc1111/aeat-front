@@ -29,8 +29,8 @@ export default function CustomersPage() {
       header: t("customers.title"),
       accessor: (customer) => (
         <div>
-          <p className="font-medium">{customer.name}</p>
-          <p className="text-xs text-muted-foreground">{customer.email}</p>
+          <p className="font-semibold text-text-primary">{customer.name}</p>
+          <p className="text-xs text-text-secondary">{customer.email}</p>
         </div>
       ),
     },
@@ -70,8 +70,8 @@ export default function CustomersPage() {
     <div className="space-y-8">
       <div className="flex flex-wrap items-center justify-between gap-4">
         <div className="space-y-1">
-          <h1 className="text-3xl font-semibold tracking-tight">{t("customers.title")}</h1>
-          <p className="text-sm text-muted-foreground">
+          <h1 className="text-3xl font-semibold text-text-primary">{t("customers.title")}</h1>
+          <p className="text-sm text-text-secondary">
             {t("customers.subtitle")}
           </p>
         </div>

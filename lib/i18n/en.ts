@@ -19,6 +19,7 @@ export const en = {
     theme: "Theme",
     keyboardFirst: "Keyboard-first experience",
     commandMenu: "Command palette",
+    navigation: "Navigation",
     save: "Save changes",
     cancel: "Cancel",
     create: "Create",

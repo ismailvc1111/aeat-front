@@ -21,6 +21,7 @@ export const es: Dictionary = {
     theme: "Tema",
     keyboardFirst: "Experiencia centrada en el teclado",
     commandMenu: "Menú de comandos",
+    navigation: "Navegación",
     save: "Guardar cambios",
     cancel: "Cancelar",
     create: "Crear",

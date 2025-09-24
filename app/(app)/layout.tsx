@@ -35,20 +35,18 @@ export default function AppLayout({
   children: React.ReactNode;
 }) {
   return (
-    <div className="relative min-h-screen w-full overflow-hidden bg-background text-foreground">
-      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(76,125,255,0.18),transparent_55%),radial-gradient(circle_at_bottom_right,rgba(236,72,153,0.12),transparent_60%)]" />
-      <div className="pointer-events-none absolute -bottom-32 left-1/3 h-72 w-72 rounded-full bg-primary/10 blur-3xl" />
-      <div className="relative z-10 grid min-h-screen w-full lg:grid-cols-[20rem_1fr]">
-        <Sidebar />
-        <div className="flex min-h-screen flex-col">
-          <Topbar />
-          <main className="flex-1 overflow-y-auto px-4 pb-16">
-            <CommandShortcuts />
-            <div className="mx-auto flex w-full max-w-6xl flex-col gap-10">
-              {children}
-            </div>
-          </main>
-        </div>
+    <div className="relative flex min-h-screen w-full bg-background text-text-primary">
+      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(76,125,255,0.15),transparent_55%),radial-gradient(circle_at_bottom_right,rgba(236,72,153,0.1),transparent_60%)]" />
+      <Sidebar />
+      <div className="relative z-10 flex min-h-screen flex-1 flex-col">
+        <Topbar />
+        <main className="relative flex-1 overflow-y-auto">
+          <CommandShortcuts />
+          <div className="relative mx-auto w-full max-w-7xl px-6 pb-16 pt-10 lg:px-8">
+            <div className="pointer-events-none absolute inset-0 -z-10 rounded-[2.5rem] border border-border/40 bg-surface/80 shadow-[0_24px_80px_rgba(8,8,8,0.25)] backdrop-blur" aria-hidden="true" />
+            <div className="relative space-y-10">{children}</div>
+          </div>
+        </main>
       </div>
     </div>
   );

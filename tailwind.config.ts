@@ -11,6 +11,7 @@ const config: Config = {
       colors: {
         background: "var(--background)",
         foreground: "var(--foreground)",
+        surface: "var(--surface)",
         card: {
           DEFAULT: "var(--card)",
           foreground: "var(--card-foreground)",
@@ -22,6 +23,16 @@ const config: Config = {
         secondary: {
           DEFAULT: "var(--secondary)",
           foreground: "var(--secondary-foreground)",
+        },
+        text: {
+          primary: "var(--text-primary)",
+          secondary: "var(--text-secondary)",
+        },
+        brand: {
+          primary: "var(--primary)",
+          success: "var(--success)",
+          error: "var(--destructive)",
+          warning: "var(--warning)",
         },
         muted: {
           DEFAULT: "var(--muted)",

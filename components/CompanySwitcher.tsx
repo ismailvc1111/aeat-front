@@ -20,8 +20,8 @@ export function CompanySwitcher() {
   const [isPending, startTransition] = useTransition();
 
   return (
-    <div className="flex items-center gap-3 rounded-full border border-border/60 bg-background/70 px-3 py-1.5 backdrop-blur">
-      <span className="flex h-7 w-7 items-center justify-center rounded-full bg-primary/10 text-primary">
+    <div className="flex items-center gap-3 rounded-xl border border-border/60 bg-surface/90 px-3 py-1.5 shadow-sm">
+      <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-primary/10 text-primary">
         <Building2 className="h-4 w-4" aria-hidden="true" />
       </span>
       <Select
@@ -40,7 +40,7 @@ export function CompanySwitcher() {
         disabled={companies.length === 0 || isPending}
       >
         <SelectTrigger
-          className="w-48 border-none bg-transparent px-0 text-left"
+          className="w-48 border-none bg-transparent px-0 text-left text-sm font-medium text-text-primary"
           aria-label={t("common.company")}
           data-state={isPending ? "loading" : undefined}
         >
